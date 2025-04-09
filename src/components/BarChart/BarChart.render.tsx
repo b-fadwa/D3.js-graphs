@@ -1,15 +1,16 @@
 import { useRenderer, useSources } from '@ws-ui/webform-editor';
 import cn from 'classnames';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { IBarChartProps } from './BarChart.config';
 
-const BarChart: FC<IBarChartProps> = ({ marginTop, marginRight, marginBottom, marginLeft, style, className, classNames = [] }) => {
+const BarChart: FC<IBarChartProps> = ({ axisFontSize,color,marginTop, marginRight, marginBottom, marginLeft, style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [value, setValue] = useState<any[]>([]);
   const {
     sources: { datasource: ds },
   } = useSources();
+  const chartRef = useRef<HTMLDivElement>(null);
 
   //value = array [{name:"",value:0}]
 
@@ -35,10 +36,14 @@ const BarChart: FC<IBarChartProps> = ({ marginTop, marginRight, marginBottom, ma
   useEffect(() => {
     
     if (!value || value.length === 0) return;
+    if (!chartRef.current) return;
     //properties
     const margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft }; //to be set as component's properties
     const width = 960 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom; 
+
+        d3.select(chartRef.current).selectAll('*').remove();
+    
     const x = d3.scaleBand().range([0, width]).padding(0.1);
     const y = d3.scaleLinear().range([height, 0]);
 
@@ -48,20 +53,42 @@ const BarChart: FC<IBarChartProps> = ({ marginTop, marginRight, marginBottom, ma
       .append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
+      .attr('fill', color)
       .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      .attr('transform', `translate(${margin.left},${margin.top})`)
 
     x.domain(
-      value.map(function (d) {
-        return d.name;
-      }),
+      value.map((d)=>d.name),
     );
     y.domain([
       0,
-      d3.max(value, function (d) {
-        return d.value;
-      }),
+      d3.max(value, (d)=>d.value),
     ]);
+       // X Axis
+        const xAxisGroup = svg
+          .append('g')
+          .attr('transform', `translate(0,${height})`)
+          .call(d3.axisBottom(x));
+
+    xAxisGroup
+          .selectAll('text')
+          .style('font-size', axisFontSize+'px')
+          .style('fill', '#555');
+      
+        xAxisGroup.selectAll('.domain').style('stroke', '#999');
+        xAxisGroup.selectAll('.tick line').style('stroke', '#ccc');
+      
+        // Y Axis
+        const yAxisGroup = svg.append('g').call(d3.axisLeft(y));
+      
+        yAxisGroup
+          .selectAll('text')
+          .style('font-size', axisFontSize+'px')
+          .style('fill', '#555');
+      
+        yAxisGroup.selectAll('.domain').style('stroke', '#999');
+        yAxisGroup.selectAll('.tick line').style('stroke', '#ccc');
+      
 
     svg
       .selectAll('.bar')
@@ -69,27 +96,14 @@ const BarChart: FC<IBarChartProps> = ({ marginTop, marginRight, marginBottom, ma
       .enter()
       .append('rect')
       .attr('class', 'bar')
-      .attr('x', function (d: any) {
-        return x(d.name);
-      } as any)
+      .attr('x', ((d)=>x(d.name) as any))
       .attr('width', x.bandwidth())
-      .attr('y', function (d) {
-        return y(d.value);
-      })
-      .attr('height', function (d) {
-        return height - y(d.value);
-      });
-
-    svg
-      .append('g')
-      .attr('transform', 'translate(0,' + height + ')')
-      .call(d3.axisBottom(x));
-
-    svg.append('g').call(d3.axisLeft(y));
-  },[value, marginTop, marginRight, marginBottom, marginLeft]);
+      .attr('y', (d)=>y(d.value))
+      .attr('height', (d)=>height - y(d.value));
+  },[marginTop, marginRight, marginBottom, marginLeft ,color, axisFontSize, value]);  
 
   return <div ref={connect} style={style} className={cn(className, classNames)}>
-    <div className='bar-chart'/>
+    <div ref={chartRef} className="bar-chart" />
   </div>;
 };
 

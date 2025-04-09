@@ -12,7 +12,7 @@ const commonSettings: TSetting[] = [
     key: 'marginLeft',
     label: 'Margin Left',
     type: ESetting.NUMBER_FIELD,
-    defaultValue: 40,
+    defaultValue: 45,
   },
   {
     key: 'marginBottom',
@@ -26,6 +26,16 @@ const commonSettings: TSetting[] = [
     type: ESetting.NUMBER_FIELD,
     defaultValue: 20,
   },
+  {
+    key:'color',
+    label:'Color',
+    type:ESetting.COLOR_PICKER
+  },
+  {
+    key:'axisFontSize',
+    label:'Axis Font Size',
+    type:ESetting.NUMBER_FIELD
+  }
 ];
 
 const Settings: TSetting[] = [

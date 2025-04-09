@@ -1,6 +1,6 @@
 import { EComponentKind, T4DComponentConfig } from '@ws-ui/webform-editor';
 import { Settings } from '@ws-ui/webform-editor';
-import { MdOutlineTextSnippet } from 'react-icons/md';
+import { FaChartBar } from "react-icons/fa";
 
 import BarChartSettings, { BasicSettings } from './BarChart.settings';
 
@@ -21,7 +21,7 @@ export default {
     settings: BarChartSettings,
     displayName: 'BarChart',
     exposed: true,
-    icon: MdOutlineTextSnippet,
+    icon: FaChartBar,
     events: [
       {
         label: 'On Click',
@@ -57,10 +57,11 @@ export default {
     },
   },
   defaultProps: {
-    // marginTop: 20,
-    // marginRight: 20,
-    // marginBottom: 30,
-    // marginLeft: 40,
+    marginTop: 20,
+    marginRight: 20,
+    marginBottom: 30,
+    marginLeft: 45 ,
+    axisFontSize: 16
   },
 } as T4DComponentConfig<IBarChartProps>;
 
@@ -69,4 +70,6 @@ export interface IBarChartProps extends webforms.ComponentProps {
   marginRight:number;
   marginBottom:number;
   marginLeft:number;
+  color:string;
+  axisFontSize:number;
 }
