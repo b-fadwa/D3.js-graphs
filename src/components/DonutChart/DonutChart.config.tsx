@@ -57,16 +57,12 @@ export default {
     },
   },
   defaultProps: {
-    width: 300,
-    height: 300,
     color:'red',
     textFontSize:12
   },
 } as T4DComponentConfig<IDonutChartProps>;
 
 export interface IDonutChartProps extends webforms.ComponentProps {
-  width:number;
-  height:number;
   color:string;
   textFontSize?: number;
 }

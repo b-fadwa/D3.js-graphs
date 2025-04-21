@@ -44,8 +44,13 @@ const BubbleChart: FC<IBubbleChartProps> = ({
 
     d3.select(chartRef.current).selectAll('*').remove();
 
-    const width = style ? parseInt(style.width as any, 10) : 600;
-    const height = style ? parseInt(style.height as any, 10) : 400;
+    const width =
+      typeof style?.width === 'number' ? style.width : parseInt(style?.width as string, 10) || 400;
+
+    const height =
+      typeof style?.height === 'number'
+        ? style.height
+        : parseInt(style?.height as string, 10) || 400;
 
     const svg = d3
       .select(chartRef.current)
@@ -85,7 +90,7 @@ const BubbleChart: FC<IBubbleChartProps> = ({
       .append('text')
       .attr('dy', '0.3em')
       .attr('text-anchor', 'middle')
-      .style('font-size', fontSize+'px')
+      .style('font-size', fontSize + 'px')
       .style('fill', 'white')
       .text((d) => (d.data as any).name);
   }, [circlePadding, color, fontSize, value]);

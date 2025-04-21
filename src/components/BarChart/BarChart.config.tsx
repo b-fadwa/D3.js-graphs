@@ -1,6 +1,6 @@
 import { EComponentKind, T4DComponentConfig } from '@ws-ui/webform-editor';
 import { Settings } from '@ws-ui/webform-editor';
-import { FaChartBar } from "react-icons/fa";
+import { FaChartBar } from 'react-icons/fa';
 
 import BarChartSettings, { BasicSettings } from './BarChart.settings';
 
@@ -60,16 +60,17 @@ export default {
     marginTop: 20,
     marginRight: 20,
     marginBottom: 30,
-    marginLeft: 45 ,
-    axisFontSize: 16
+    marginLeft: 45,
+    axisFontSize: 16,
+    color: '#3b82f6ff',
   },
 } as T4DComponentConfig<IBarChartProps>;
 
 export interface IBarChartProps extends webforms.ComponentProps {
-  marginTop:number;
-  marginRight:number;
-  marginBottom:number;
-  marginLeft:number;
-  color:string;
-  axisFontSize:number;
+  marginTop: number;
+  marginRight: number;
+  marginBottom: number;
+  marginLeft: number;
+  color: string;
+  axisFontSize: number;
 }

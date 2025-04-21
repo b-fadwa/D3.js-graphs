@@ -42,13 +42,19 @@ const AreaChart: FC<IAreaChartProps> = ({
   }, [ds]);
 
   useEffect(() => {
-    if (!chartRef.current || !value) return;
+    if (!chartRef.current || !value || !value.length) return;
 
     d3.select(chartRef.current).select('*').remove();
 
     const margin = { top, right, bottom, left };
-    const width = 800 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+
+    const width =
+      typeof style?.width === 'number' ? style.width : parseInt(style?.width as string, 10) || 600;
+
+    const height =
+      typeof style?.height === 'number'
+        ? style.height
+        : parseInt(style?.height as string, 10) || 400;
 
     const svg = d3
       .select(chartRef.current)

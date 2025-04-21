@@ -6,8 +6,6 @@ import { ILineChartProps } from './LineChart.config';
 import * as d3 from 'd3';
 const LineChart: FC<ILineChartProps> = ({
   color,
-  width,
-  height,
   axisFontSize,
   marginBottom,
   marginLeft,
@@ -44,10 +42,18 @@ const LineChart: FC<ILineChartProps> = ({
   }, [ds]);
 
   useEffect(() => {
-    if (!chartRef.current) return;
+    if (!chartRef.current || !value || value.length === 0) return;
     d3.select(chartRef.current).selectAll('*').remove();
 
     const margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
+
+    const width =
+      typeof style?.width === 'number' ? style.width : parseInt(style?.width as string, 10) || 400;
+
+    const height =
+      typeof style?.height === 'number'
+        ? style.height
+        : parseInt(style?.height as string, 10) || 400;
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
@@ -100,7 +106,7 @@ const LineChart: FC<ILineChartProps> = ({
       .attr('stroke', color)
       .attr('stroke-width', 2)
       .attr('d', line);
-  }, [value, width, height, color, axisFontSize, marginBottom, marginLeft, marginRight, marginTop]);
+  }, [value, color, axisFontSize, marginBottom, marginLeft, marginRight, marginTop]);
 
   return (
     <div ref={connect} style={style} className={cn(className, classNames)}>

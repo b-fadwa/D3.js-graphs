@@ -7,8 +7,6 @@ import * as d3 from 'd3';
 
 const DonutChart: FC<IDonutChartProps> = ({
   color,
-  width,
-  height,
   textFontSize,
   style,
   className,
@@ -31,6 +29,15 @@ const DonutChart: FC<IDonutChartProps> = ({
 
   useEffect(() => {
     d3.select(chartRef.current).selectAll('*').remove();
+
+    const width =
+      typeof style?.width === 'number' ? style.width : parseInt(style?.width as string, 10) || 400;
+
+    const height =
+      typeof style?.height === 'number'
+        ? style.height
+        : parseInt(style?.height as string, 10) || 400;
+
     const radius = Math.min(width, height) / 2;
 
     const svg = d3
@@ -81,7 +88,7 @@ const DonutChart: FC<IDonutChartProps> = ({
       .attr('transform', (d) => `translate(${arc.centroid(d)})`)
       .style('text-anchor', 'middle')
       .style('font-size', textFontSize + 'px');
-  }, [width, height, color, textFontSize]);
+  }, [color, textFontSize]);
 
   return (
     <div ref={connect} style={style} className={cn(className, classNames)}>

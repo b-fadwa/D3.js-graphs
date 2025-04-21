@@ -1,6 +1,6 @@
 import { EComponentKind, T4DComponentConfig } from '@ws-ui/webform-editor';
 import { Settings } from '@ws-ui/webform-editor';
-import { GiHistogram } from "react-icons/gi";
+import { GiHistogram } from 'react-icons/gi';
 
 import HistogramChartSettings, { BasicSettings } from './HistogramChart.settings';
 
@@ -59,22 +59,20 @@ export default {
   defaultProps: {
     binsCount: 10,
     color: 'blue',
-    barSpacing:35,
-    barStroke:'black',
-    marginTop:20,
-    marginRight:30,
-    marginBottom:30,
-    marginLeft:40
+    barStroke: 'black',
+    marginTop: 20,
+    marginRight: 30,
+    marginBottom: 30,
+    marginLeft: 40,
   },
 } as T4DComponentConfig<IHistogramChartProps>;
 
 export interface IHistogramChartProps extends webforms.ComponentProps {
-binsCount?: number;
-color:string;
-barSpacing:number;
-barStroke:string;
-marginTop?:number;
-marginRight?:number;
-marginBottom?:number;
-marginLeft?:number;
+  binsCount?: number;
+  color: string;
+  barStroke: string;
+  marginTop?: number;
+  marginRight?: number;
+  marginBottom?: number;
+  marginLeft?: number;
 }
