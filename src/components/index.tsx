@@ -6,6 +6,7 @@ import DonutChart from './DonutChart';
 import AreaChart from './AreaChart';
 import BubbleChart from './BubbleChart';
 import HistogramChart from './HistogramChart';
+import ScatterChart from './ScatterChart';
 
 
 export default {
@@ -17,4 +18,5 @@ export default {
   AreaChart,
   BubbleChart,
   HistogramChart,
+  ScatterChart,
 };
