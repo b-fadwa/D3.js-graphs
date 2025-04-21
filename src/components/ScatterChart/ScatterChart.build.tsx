@@ -35,9 +35,14 @@ const ScatterChart: FC<IScatterChartProps> = ({
   useEffect(() => {
     if (!chartRef.current) return;
     d3.select(chartRef.current).selectAll('*').remove();
+    const width =
+      typeof style?.width === 'number' ? style.width : parseInt(style?.width as string, 10) || 600;
 
-    const width = style?.width ? parseInt(style.width as string, 10) : 600;
-    const height = style?.height ? parseInt(style.height as string, 10) : 400;
+    const height =
+      typeof style?.height === 'number'
+        ? style.height
+        : parseInt(style?.height as string, 10) || 400;
+        
     const margin = {
       top: marginTop ?? 20,
       right: marginRight ?? 30,
@@ -80,7 +85,7 @@ const ScatterChart: FC<IScatterChartProps> = ({
       .attr('r', pointRadius)
       .attr('fill', pointColor);
   }, [pointColor, pointRadius, marginBottom, marginLeft, marginRight, marginTop]);
-  
+
   return (
     <div ref={connect} style={style} className={cn(className, classNames)}>
       <div ref={chartRef} />

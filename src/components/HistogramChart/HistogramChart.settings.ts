@@ -9,12 +9,6 @@ const commonSettings: TSetting[] = [
     defaultValue: 10,
   },
   {
-    key: 'barSpacing',
-    label: 'Bar spacing',
-    type: ESetting.NUMBER_FIELD,
-    defaultValue: 35,
-  },
-  {
     key: 'color',
     label: 'Bar color',
     type: ESetting.COLOR_PICKER,
@@ -25,6 +19,30 @@ const commonSettings: TSetting[] = [
     label: 'Stroke color',
     type: ESetting.COLOR_PICKER,
     defaultValue: '#000000',
+  },
+  {
+    key: 'marginTop',
+    label: 'Margin top',
+    type: ESetting.NUMBER_FIELD,
+    defaultValue: 20,
+  },
+  {
+    key: 'marginLeft',
+    label: 'Margin left',
+    type: ESetting.NUMBER_FIELD,
+    defaultValue: 40,
+  },
+  {
+    key: 'marginRight',
+    label: 'Margin right',
+    type: ESetting.NUMBER_FIELD,
+    defaultValue: 30,
+  },
+  {
+    key: 'marginBottom',
+    label: 'Margin bottom',
+    type: ESetting.NUMBER_FIELD,
+    defaultValue: 30,
   },
 ];
 

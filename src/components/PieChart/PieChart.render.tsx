@@ -41,15 +41,19 @@ const PieChart: FC<IPieChartProps> = ({
     const interpolator = d3.interpolateLab(darker, baseColor);
     return Array.from({ length: steps }, (_, i) => interpolator(i / (steps - 1)));
   };
-  
 
   useEffect(() => {
     if (!value || value.length === 0 || !chartRef.current) return;
 
     d3.select(chartRef.current).selectAll('*').remove();
 
-    const width = outerRadius * 2 + 50;
-    const height = outerRadius * 2 + 50;
+    const width =
+      typeof style?.width === 'number' ? style.width : parseInt(style?.width as string, 10) || 400;
+
+    const height =
+      typeof style?.height === 'number'
+        ? style.height
+        : parseInt(style?.height as string, 10) || 400;
 
     const svg = d3
       .select(chartRef.current)
@@ -59,14 +63,13 @@ const PieChart: FC<IPieChartProps> = ({
       .append('g')
       .attr('transform', `translate(${width / 2},${height / 2})`);
 
-    const pie = d3.pie<any>().value(d => d.value);
+    const pie = d3.pie<any>().value((d) => d.value);
     const dataReady = pie(value);
-    const gradientColors = color ? generateGradientColors(color, value.length) : d3.schemeCategory10;
-    
+    const gradientColors = color
+      ? generateGradientColors(color, value.length)
+      : d3.schemeCategory10;
 
-    const arc = d3.arc<any>()
-      .innerRadius(innerRadius)
-      .outerRadius(outerRadius);
+    const arc = d3.arc<any>().innerRadius(innerRadius).outerRadius(outerRadius);
 
     svg
       .selectAll('path')
@@ -84,8 +87,8 @@ const PieChart: FC<IPieChartProps> = ({
       .data(dataReady)
       .enter()
       .append('text')
-      .text(d => d.data.name)
-      .attr('transform', d => `translate(${arc.centroid(d)})`)
+      .text((d) => d.data.name)
+      .attr('transform', (d) => `translate(${arc.centroid(d)})`)
       .style('text-anchor', 'middle')
       .style('font-size', `${labelFontSize}px`)
       .style('fill', '#333');

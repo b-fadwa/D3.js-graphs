@@ -1,6 +1,6 @@
 import { EComponentKind, T4DComponentConfig } from '@ws-ui/webform-editor';
 import { Settings } from '@ws-ui/webform-editor';
-import { FaChartPie } from "react-icons/fa";
+import { FaChartPie } from 'react-icons/fa';
 
 import PieChartSettings, { BasicSettings } from './PieChart.settings';
 
@@ -57,15 +57,16 @@ export default {
     },
   },
   defaultProps: {
-    innerRadius:0,
-    outerRadius:150,
-    labelFontSize:14,
-},
+    innerRadius: 0,
+    outerRadius: 150,
+    labelFontSize: 14,
+    color: '#3b82f6ff',
+  },
 } as T4DComponentConfig<IPieChartProps>;
 
 export interface IPieChartProps extends webforms.ComponentProps {
-  innerRadius:number;
-outerRadius:number;
-labelFontSize:number;
-color:string;
+  innerRadius: number;
+  outerRadius: number;
+  labelFontSize: number;
+  color: string;
 }

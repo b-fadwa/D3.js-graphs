@@ -36,7 +36,7 @@ const commonSettings: TSetting[] = [
     key: 'marginLeft',
     label: 'Margin Left',
     type: ESetting.NUMBER_FIELD,
-    defaultValue: 100,
+    defaultValue: 50,
   },
   {
     key: 'marginRight',

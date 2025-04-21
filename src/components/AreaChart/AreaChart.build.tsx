@@ -33,12 +33,19 @@ const AreaChart: FC<IAreaChartProps> = ({
   ];
 
   useEffect(() => {
-    if(!chartRef.current )  return;
+    if (!chartRef.current) return;
+    
     d3.select(chartRef.current).select('*').remove();
 
     const margin = { top, right, bottom, left };
-    const width = 800 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+
+    const width =
+      typeof style?.width === 'number' ? style.width : parseInt(style?.width as string, 10) || 600;
+
+    const height =
+      typeof style?.height === 'number'
+        ? style.height
+        : parseInt(style?.height as string, 10) || 400;
 
     const svg = d3
       .select(chartRef.current)
@@ -78,7 +85,7 @@ const AreaChart: FC<IAreaChartProps> = ({
       .call(d3.axisBottom(x).ticks(data.length));
 
     svg.append('g').attr('class', 'y-axis').call(d3.axisLeft(y));
-  }, [top, right, bottom, left,color]);
+  }, [top, right, bottom, left, color]);
 
   return (
     <div ref={connect} style={style} className={cn(className, classNames)}>

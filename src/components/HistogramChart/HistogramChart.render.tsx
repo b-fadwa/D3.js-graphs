@@ -9,7 +9,6 @@ const HistogramChart: FC<IHistogramChartProps> = ({
   style,
   binsCount,
   color,
-  barSpacing,
   barStroke,
   marginBottom,
   marginLeft,
@@ -45,12 +44,17 @@ const HistogramChart: FC<IHistogramChartProps> = ({
   }, [ds]);
 
   useEffect(() => {
-    if (!chartRef.current) return;
+    if (!chartRef.current || !value || !value.length) return;
 
     d3.select(chartRef.current).selectAll('*').remove();
 
-    const width = style && style.width ? parseInt((style as any).width, 10) : 600;
-    const height = style && style.height ? parseInt((style as any).height, 10) : 400;
+    const width =
+      typeof style?.width === 'number' ? style.width : parseInt(style?.width as string, 10) || 600;
+
+    const height =
+      typeof style?.height === 'number'
+        ? style.height
+        : parseInt(style?.height as string, 10) || 400;
 
     const margin = {
       top: marginTop ?? 20,
@@ -100,17 +104,7 @@ const HistogramChart: FC<IHistogramChartProps> = ({
       .call(d3.axisBottom(x));
 
     svg.append('g').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(y));
-  }, [
-    binsCount,
-    barSpacing,
-    color,
-    marginBottom,
-    marginLeft,
-    marginRight,
-    marginTop,
-    barStroke,
-    value,
-  ]);
+  }, [binsCount, color, marginBottom, marginLeft, marginRight, marginTop, barStroke, value]);
 
   return (
     <div ref={connect} style={style} className={cn(className, classNames)}>

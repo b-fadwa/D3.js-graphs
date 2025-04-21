@@ -27,15 +27,16 @@ const commonSettings: TSetting[] = [
     defaultValue: 20,
   },
   {
-    key:'color',
-    label:'Color',
-    type:ESetting.COLOR_PICKER
+    key: 'color',
+    label: 'Color',
+    type: ESetting.COLOR_PICKER,
+    defaultValue: '#3b82f6ff',
   },
   {
-    key:'axisFontSize',
-    label:'Axis Font Size',
-    type:ESetting.NUMBER_FIELD
-  }
+    key: 'axisFontSize',
+    label: 'Axis Font Size',
+    type: ESetting.NUMBER_FIELD,
+  },
 ];
 
 const Settings: TSetting[] = [

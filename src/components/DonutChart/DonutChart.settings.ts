@@ -3,18 +3,6 @@ import { BASIC_SETTINGS, DEFAULT_SETTINGS, load } from '@ws-ui/webform-editor';
 
 const commonSettings: TSetting[] = [
   {
-    key: 'width',
-    label: 'Width',
-    type: ESetting.NUMBER_FIELD,
-    defaultValue: 300,
-  },
-  {
-    key: 'height',
-    label: 'Height',
-    type: ESetting.NUMBER_FIELD,
-    defaultValue: 300,
-  },
-  {
     key: 'textFontSize',
     label: 'Text Font Size',
     type: ESetting.NUMBER_FIELD,

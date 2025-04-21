@@ -1,6 +1,6 @@
 import { EComponentKind, T4DComponentConfig } from '@ws-ui/webform-editor';
 import { Settings } from '@ws-ui/webform-editor';
-import { FaChartLine } from "react-icons/fa6";
+import { FaChartLine } from 'react-icons/fa6';
 
 import LineChartSettings, { BasicSettings } from './LineChart.settings';
 
@@ -57,24 +57,20 @@ export default {
     },
   },
   defaultProps: {
-    width:450,
-    height:400,
-    axisFontSize:12,
-    marginBottom:30,
-    marginLeft:40,
-    marginRight:30,
-    marginTop:20,
-    color:"#000000ff"
+    axisFontSize: 12,
+    marginBottom: 30,
+    marginLeft: 40,
+    marginRight: 30,
+    marginTop: 20,
+    color: '#000000ff',
   },
 } as T4DComponentConfig<ILineChartProps>;
 
 export interface ILineChartProps extends webforms.ComponentProps {
   color: string;
-  width:number;
-  height:number;
-  axisFontSize:number;
-  marginTop:number;
-  marginBottom:number;
-  marginLeft:number;
-  marginRight:number;
+  axisFontSize: number;
+  marginTop: number;
+  marginBottom: number;
+  marginLeft: number;
+  marginRight: number;
 }

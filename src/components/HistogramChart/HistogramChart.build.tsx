@@ -7,7 +7,6 @@ import * as d3 from 'd3';
 const HistogramChart: FC<IHistogramChartProps> = ({
   style,
   binsCount,
-  barSpacing,
   barStroke,
   color,
   marginBottom,
@@ -29,8 +28,13 @@ const HistogramChart: FC<IHistogramChartProps> = ({
 
     d3.select(chartRef.current).selectAll('*').remove();
 
-    const width = style && style.width ? parseInt((style as any).width, 10) : 600;
-    const height = style && style.height ? parseInt((style as any).height, 10) : 400;
+    const width =
+      typeof style?.width === 'number' ? style.width : parseInt(style?.width as string, 10) || 600;
+
+    const height =
+      typeof style?.height === 'number'
+        ? style.height
+        : parseInt(style?.height as string, 10) || 400;
 
     const margin = {
       top: marginTop ?? 20,
@@ -80,7 +84,7 @@ const HistogramChart: FC<IHistogramChartProps> = ({
       .call(d3.axisBottom(x));
 
     svg.append('g').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(y));
-  }, [binsCount, barSpacing, color, marginBottom, marginLeft, marginRight, marginTop, barStroke]);
+  }, [binsCount, color, marginBottom, marginLeft, marginRight, marginTop, barStroke]);
 
   return (
     <div ref={connect} style={style} className={cn(className, classNames)}>

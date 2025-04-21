@@ -12,18 +12,19 @@ const commonSettings: TSetting[] = [
     key: 'outerRadius',
     label: 'Outer Radius',
     type: ESetting.NUMBER_FIELD,
-    defaultValue:150,
-  }, 
-   {
+    defaultValue: 150,
+  },
+  {
     key: 'labelFontSize',
     label: 'Label Font Size',
     type: ESetting.NUMBER_FIELD,
     defaultValue: 14,
-  },  
+  },
   {
     key: 'color',
     label: 'Color',
     type: ESetting.COLOR_PICKER,
+    defaultValue: '#3b82f6ff',
   },
 ];
 

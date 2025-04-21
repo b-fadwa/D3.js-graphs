@@ -63,7 +63,7 @@ export default {
     marginTop:20,
     marginRight:100,
     marginBottom:20,
-    marginLeft:100,
+    marginLeft:50,
     strokeWidth:1
   },
 } as T4DComponentConfig<ITreeChartProps>;
