@@ -8,6 +8,7 @@ import BubbleChart from './BubbleChart';
 import HistogramChart from './HistogramChart';
 import ScatterChart from './ScatterChart';
 import TreeChart from './TreeChart';
+import RadarChart from './RadarChart';
 
 
 export default {
@@ -21,4 +22,5 @@ export default {
   HistogramChart,
   ScatterChart,
   TreeChart,
+  RadarChart,
 };
