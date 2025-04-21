@@ -12,6 +12,7 @@ import RadarChart from './RadarChart';
 import TreeMapChart from './TreeMapChart';
 import RadialChartBar from './RadialChartBar';
 import BulletChart from './BulletChart';
+import LollipopChart from './LollipopChart';
 
 
 export default {
@@ -29,4 +30,5 @@ export default {
   TreeMapChart,
   RadialChartBar,
   BulletChart,
+  LollipopChart,
 };
