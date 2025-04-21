@@ -4,6 +4,7 @@ import BarChart from './BarChart';
 import LineChart from './LineChart';
 import DonutChart from './DonutChart';
 import AreaChart from './AreaChart';
+import BubbleChart from './BubbleChart';
 
 
 export default {
@@ -13,4 +14,5 @@ export default {
   LineChart,
   DonutChart,
   AreaChart,
+  BubbleChart,
 };
