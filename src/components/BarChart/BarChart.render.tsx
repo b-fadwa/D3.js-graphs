@@ -112,7 +112,11 @@ const BarChart: FC<IBarChartProps> = ({
   }, [marginTop, marginRight, marginBottom, marginLeft, color, axisFontSize, value]);
 
   return (
-    <div ref={connect} style={style} className={cn(className, classNames)}>
+    <div
+      ref={connect}
+      style={style || { width: 'fit-content', height: 'fit-content' }}
+      className={cn(className, classNames)}
+    >
       <div ref={chartRef} className="bar-chart" />
     </div>
   );

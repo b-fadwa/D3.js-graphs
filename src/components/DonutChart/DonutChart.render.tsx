@@ -102,7 +102,11 @@ const DonutChart: FC<IDonutChartProps> = ({
   }, [textFontSize, color, value]);
 
   return (
-    <div ref={connect} style={style} className={cn(className, classNames)}>
+    <div
+      ref={connect}
+      style={style || { width: 'fit-content', height: 'fit-content' }}
+      className={cn(className, classNames)}
+    >
       <div ref={chartRef} />
     </div>
   );

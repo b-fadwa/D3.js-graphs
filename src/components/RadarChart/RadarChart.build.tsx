@@ -72,26 +72,27 @@ const RadarChart: FC<IRadarChartProps> = ({
       .angle((_, i) => i * angleSlice);
 
     // Labels for each axis
-    showLabels && svg
-      .selectAll('.axisLabel')
-      .data(data)
-      .enter()
-      .append('text')
-      .attr('class', 'axisLabel')
-      .attr('x', (_, i) => {
-        const angle = i * angleSlice - Math.PI / 2;
-        const labelRadius = radius + labelOffset;
-        return labelRadius * Math.cos(angle);
-      })
-      .attr('y', (_, i) => {
-        const angle = i * angleSlice - Math.PI / 2;
-        const labelRadius = radius + labelOffset;
-        return labelRadius * Math.sin(angle);
-      })
-      .attr('text-anchor', 'middle')
-      .attr('dy', '0.35em')
-      .style('font-size', +labelFontSize + 'px')
-      .text((d) => d.label);
+    showLabels &&
+      svg
+        .selectAll('.axisLabel')
+        .data(data)
+        .enter()
+        .append('text')
+        .attr('class', 'axisLabel')
+        .attr('x', (_, i) => {
+          const angle = i * angleSlice - Math.PI / 2;
+          const labelRadius = radius + labelOffset;
+          return labelRadius * Math.cos(angle);
+        })
+        .attr('y', (_, i) => {
+          const angle = i * angleSlice - Math.PI / 2;
+          const labelRadius = radius + labelOffset;
+          return labelRadius * Math.sin(angle);
+        })
+        .attr('text-anchor', 'middle')
+        .attr('dy', '0.35em')
+        .style('font-size', +labelFontSize + 'px')
+        .text((d) => d.label);
 
     svg
       .append('path')
@@ -146,7 +147,11 @@ const RadarChart: FC<IRadarChartProps> = ({
   ]);
 
   return (
-    <div ref={connect} style={style} className={cn(className, classNames)}>
+    <div
+      ref={connect}
+      style={style || { width: 'fit-content', height: 'fit-content' }}
+      className={cn(className, classNames)}
+    >
       <div ref={chartRef} />
     </div>
   );

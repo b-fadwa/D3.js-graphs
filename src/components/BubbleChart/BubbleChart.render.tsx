@@ -96,7 +96,11 @@ const BubbleChart: FC<IBubbleChartProps> = ({
   }, [circlePadding, color, fontSize, value]);
 
   return (
-    <div ref={connect} style={style} className={cn(className, classNames)}>
+    <div
+      ref={connect}
+      style={style || { width: 'fit-content', height: 'fit-content' }}
+      className={cn(className, classNames)}
+    >
       <div ref={chartRef} />
     </div>
   );

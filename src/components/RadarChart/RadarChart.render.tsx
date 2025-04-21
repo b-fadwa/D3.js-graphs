@@ -47,7 +47,7 @@ const RadarChart: FC<IRadarChartProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ds]);
 
-  useEffect(() => {  
+  useEffect(() => {
     if (!chartRef.current || !value) return;
 
     d3.select(chartRef.current).selectAll('*').remove();
@@ -156,12 +156,18 @@ const RadarChart: FC<IRadarChartProps> = ({
     labelOffset,
     showLabels,
     style,
-    value
+    value,
   ]);
 
-  return <div ref={connect} style={style} className={cn(className, classNames)}>
-    <div ref={chartRef} />
-  </div>;
+  return (
+    <div
+      ref={connect}
+      style={style || { width: 'fit-content', height: 'fit-content' }}
+      className={cn(className, classNames)}
+    >
+      <div ref={chartRef} />
+    </div>
+  );
 };
 
 export default RadarChart;
