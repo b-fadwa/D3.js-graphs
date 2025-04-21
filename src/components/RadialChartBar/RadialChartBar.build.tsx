@@ -103,10 +103,14 @@ const RadialChartBar: FC<IRadialChartBarProps> = ({
         )
         .style('font-size', fontSize + 'px')
         .attr('alignment-baseline', 'middle');
-  }, [innerRadius, color , showLabels, fontSize]);
+  }, [innerRadius, color, showLabels, fontSize]);
 
   return (
-    <div ref={connect} style={style} className={cn(className, classNames)}>
+    <div
+      ref={connect}
+      style={style || { width: 'fit-content', height: 'fit-content' }}
+      className={cn(className, classNames)}
+    >
       <div ref={chartRef} />
     </div>
   );

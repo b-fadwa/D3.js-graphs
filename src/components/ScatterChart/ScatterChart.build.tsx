@@ -42,7 +42,7 @@ const ScatterChart: FC<IScatterChartProps> = ({
       typeof style?.height === 'number'
         ? style.height
         : parseInt(style?.height as string, 10) || 400;
-        
+
     const margin = {
       top: marginTop ?? 20,
       right: marginRight ?? 30,
@@ -87,7 +87,11 @@ const ScatterChart: FC<IScatterChartProps> = ({
   }, [pointColor, pointRadius, marginBottom, marginLeft, marginRight, marginTop]);
 
   return (
-    <div ref={connect} style={style} className={cn(className, classNames)}>
+    <div
+      ref={connect}
+      style={style || { width: 'fit-content', height: 'fit-content' }}
+      className={cn(className, classNames)}
+    >
       <div ref={chartRef} />
     </div>
   );

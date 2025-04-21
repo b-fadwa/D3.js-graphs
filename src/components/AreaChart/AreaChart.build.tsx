@@ -34,7 +34,7 @@ const AreaChart: FC<IAreaChartProps> = ({
 
   useEffect(() => {
     if (!chartRef.current) return;
-    
+
     d3.select(chartRef.current).select('*').remove();
 
     const margin = { top, right, bottom, left };
@@ -88,7 +88,11 @@ const AreaChart: FC<IAreaChartProps> = ({
   }, [top, right, bottom, left, color]);
 
   return (
-    <div ref={connect} style={style} className={cn(className, classNames)}>
+    <div
+      ref={connect}
+      style={style || { width: 'fit-content', height: 'fit-content' }}
+      className={cn(className, classNames)}
+    >
       <div ref={chartRef} />
     </div>
   );
