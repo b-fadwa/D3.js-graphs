@@ -10,6 +10,7 @@ import ScatterChart from './ScatterChart';
 import TreeChart from './TreeChart';
 import RadarChart from './RadarChart';
 import TreeMapChart from './TreeMapChart';
+import RadialChartBar from './RadialChartBar';
 
 
 export default {
@@ -25,4 +26,5 @@ export default {
   TreeChart,
   RadarChart,
   TreeMapChart,
+  RadialChartBar,
 };
