@@ -1,0 +1,122 @@
+import { useRenderer, useSources } from '@ws-ui/webform-editor';
+import cn from 'classnames';
+import { FC, useEffect, useRef, useState } from 'react';
+
+import { ITreeMapChartProps } from './TreeMapChart.config';
+import * as d3 from 'd3';
+
+const TreeMapChart: FC<ITreeMapChartProps> = ({
+  padding,
+  leaveColor,
+  strokeColor,
+  strokeWidth,
+  fontColor,
+  style,
+  className,
+  classNames = [],
+}) => {
+  const { connect } = useRenderer();
+  const [value, setValue] = useState<object>({});
+  const chartRef = useRef<HTMLDivElement>(null);
+
+  const {
+    sources: { datasource: ds },
+  } = useSources();
+
+  useEffect(() => {
+    if (!ds) return;
+
+    //to convert numeric array into an actual array []
+    const normalize = (node: any): any => {
+      const children = node?.children ? Object.values(node?.children).map(normalize) : undefined;
+      return {
+        name: node?.name,
+        value: node?.value,
+        children,
+      };
+    };
+
+    const listener = async (/* event */) => {
+      const v = await ds.getValue();
+      const cleanArray = normalize(v);
+      setValue(cleanArray);
+    };
+
+    listener();
+
+    ds.addListener('changed', listener);
+
+    return () => {
+      ds.removeListener('changed', listener);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ds]);
+
+  useEffect(() => {
+    if (!chartRef.current || !value) return;
+
+    d3.select(chartRef.current).selectAll('*').remove();
+
+    const width =
+      typeof style?.width === 'number' ? style.width : parseInt(style?.width as string, 10) || 600;
+
+    const height =
+      typeof style?.height === 'number'
+        ? style.height
+        : parseInt(style?.height as string, 10) || 600;
+
+    const svg = d3
+      .select(chartRef.current)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
+
+    // Define the treemap layout
+    const treemap = d3.treemap().size([width, height]).padding(padding);
+
+    const root = d3.hierarchy(value).sum((d: any) => d.value);
+    treemap(root as any);
+
+    // Append the rectangles
+    svg
+      .selectAll('rect')
+      .data(root.leaves())
+      .enter()
+      .append('rect')
+      .attr('x', (d: any) => d.x0)
+      .attr('y', (d: any) => d.y0)
+      .attr('width', (d: any) => d.x1 - d.x0)
+      .attr('height', (d: any) => d.y1 - d.y0)
+      .attr('fill', leaveColor)
+      .attr('stroke', strokeColor)
+      .attr('stroke-width', strokeWidth);
+
+    // Add labels to the treemap
+    svg
+      .selectAll('text')
+      .data(root.leaves())
+      .enter()
+      .append('text')
+      .attr('x', (d: any) => (d.x0 + d.x1) / 2)
+      .attr('y', (d: any) => (d.y0 + d.y1) / 2)
+      .attr('dy', '.35em')
+      .attr('text-anchor', 'middle')
+      .attr('fill', fontColor)
+      .text((d) => {
+        const text = `${(d.data as any).name}`;
+        const maxWidth = (d as any).x1 - (d as any).x0 - 8;
+        const avgCharWidth = 7;
+        const maxChars = Math.floor(maxWidth / avgCharWidth);
+        return text.length > maxChars ? text.slice(0, maxChars - 1) + '…' : text;
+      });
+    // .text((d: any) => `${d.data.name}: ${d.data.value}`);
+  }, [padding, leaveColor, strokeColor, strokeWidth, fontColor, value]);
+
+  return (
+    <div ref={connect} style={style} className={cn(className, classNames)}>
+      <div ref={chartRef} />
+    </div>
+  );
+};
+
+export default TreeMapChart;
